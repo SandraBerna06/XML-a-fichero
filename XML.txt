@@ -1,0 +1,9 @@
+ <codcole>101</codcole>
+    <nomcole>Claret de Madrid</nomcole>
+    <codciudad>1</codciudad>
+    <codcole>102</codcole>
+    <nomcole>Arturo Soria</nomcole>
+    <codciudad>1</codciudad>
+    <codcole>103</codcole>
+    <nomcole>Ausias March</nomcole>
+    <codciudad>3</codciudad>
