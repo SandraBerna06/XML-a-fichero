@@ -1,0 +1,55 @@
+package metodosColegio;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Xml {
+    static ArrayList<Colegio> colegios = new ArrayList<>();
+    static ArrayList<Ciudad> ciudades = new ArrayList<>();
+
+    public static void main(String[] args) {
+        colegios.add(new Colegio(101, "Claret de Madrid", 1));
+        colegios.add(new Colegio(102, "Arturo Soria", 1));
+        colegios.add(new Colegio(103, "Ausias March", 3));
+        ciudades.add(new Ciudad(1, "Madrid"));
+        ciudades.add(new Ciudad(2, "Barcelona"));
+        ciudades.add(new Ciudad(3, "Valencia"));
+        ciudades.add(new Ciudad(4, "Elche"));
+        ciudades.add(new Ciudad(5, "Alicante"));
+        escribir(colegios);
+
+    }
+
+
+    public static void escribir(ArrayList<Colegio> colegios) {
+        Scanner scanner = new Scanner(System.in);
+        Class<Colegio> c = Colegio.class;
+        try (BufferedWriter bfw = new BufferedWriter(new FileWriter("xml.txt"))) {
+
+            for (Object colegio5 : colegios) {
+                Class<?> clase1=colegio5.getClass();
+                for (int i = 0; i < c.getDeclaredFields().length; i++) {
+                    var campo = c.getDeclaredFields()[i];
+                    campo.setAccessible(true);
+                    String etiqueta = campo.getName();
+                    Object valor = campo.get(colegio5);
+                    String linea = "<" + etiqueta + ">" + String.valueOf(valor) + "</" + etiqueta + ">";
+                    bfw.write(linea);
+                    bfw.newLine();
+
+
+                }
+            }
+            bfw.close();
+        } catch (IOException e) {
+            System.err.println("Error al leer el archivo: " + e.getMessage());
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
+}
+
+
